@@ -10,6 +10,7 @@
   - [Test imgui-sfml](#test-imgui-sfml)
 - [Compile and install spdlog (header only lib)](#compile-and-install-spdlog-header-only-lib)
 - [docopt.cpp](#docoptcpp)
+- [Install multiple GCC versions in Linux Mint 19.3](#install-multiple-gcc-versions-in-linux-mint-193)
 
 ## CMake Build Types
 
@@ -353,4 +354,37 @@ cmake --build . --target install
 -- D:\Dev\opt\lib
 -- D:\Dev\opt\include\docopt
 -- D:\Dev\opt\lib\cmake\docopt
+```
+
+## Install multiple GCC versions in Linux Mint 19.3
+
+First install/upgrade multiple gcc/g++ packages:
+
+```
+sudo apt-get update
+sudo apt install build-essential
+sudo apt-get install gcc-7 g++-7 gcc-8 g++-8
+```
+
+Mint 19.3 does not have gcc/g++ 9 so we need to add `ubuntu-toolchain-r`:
+```
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install gcc-9 g++-9
+```
+
+Use the `update-alternatives` tool to create list of multiple gcc/g++ versions:
+```
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 7
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 7
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 8
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 9
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9
+```
+
+Check the available gcc/g++ list on the system and select desired version by entering selection number:
+```
+sudo update-alternatives --config gcc
+sudo update-alternatives --config g++
 ```
