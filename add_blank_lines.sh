@@ -18,6 +18,9 @@ if [[ ! -f $file ]]; then
     exit 1
 fi
 
+# Convert to Linux-style path if the path is Windows' style
+file="${file//\\//}"
+
 # The awk command that does the work
 awk -v closing_pat='^[ \t]*}[ \t;]*$' \
 -v blank_line='^[ \t]*$' \
@@ -30,4 +33,4 @@ awk -v closing_pat='^[ \t]*}[ \t;]*$' \
     print; getline; if ($0 !~ blank_line ) print "\n" $0; else print
   } else print
 }
-{b=$0}' $file > cf.tmp && mv cf.tmp $file
+{b=$0}' $file > cf.tmp && mv cf.tmp $file && echo Done!
