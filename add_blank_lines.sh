@@ -25,9 +25,9 @@ awk -v closing_pat='^[ \t]*}[ \t;]*$' \
 -v access_kw='^[ \t]*(public|protected|private)[ \t]*:[ \t]*$' \
 '{
   if ($0 ~ closing_pat) {
-    if (b !~ blank_line && b !~ opening_pat && b !~ access_kw) print "\n" $0; else print $0
+    if (b !~ blank_line && b !~ opening_pat && b !~ access_kw) print "\n" $0; else print
   } else if ($0 ~ access_kw) {
-    print $0 "\n"
-  } else print $0
+    print; getline; if ($0 !~ blank_line ) print "\n" $0; else print
+  } else print
 }
 {b=$0}' $file > cf.tmp && mv cf.tmp $file
