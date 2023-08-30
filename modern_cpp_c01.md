@@ -136,3 +136,38 @@ Both the `override` and `final` keywords are special identifiers that have a mea
 ## Using range-based for loops to iterate on a range
 
 It is important to note that if a class contains any members (function, data member, or enumerators) called begin or end, regardless of their type and accessibility, they will be picked for begin_expr and end_expr. Therefore, such a class type cannot be used in range-based for loops.
+
+## Enable range-based for loops for custom types
+
+- Create mutable and constant iterators for the type, which must implement the following operators:
+  - `operator++` (both prefix and postfix) for incrementing the iterator.
+  - `operator*` for dereferencing the iterator and accessing the actual element being pointed to by the iterator.
+  - `operator!=` for comparing it with another iterator for inequality.
+- Provide free begin() and end() functions for the type.
+
+## Using explicit constructors and conversion operators to avoid implicit conversion
+
+When using the explicit specifier in the declaration of a constructor, that constructor becomes an explicit constructor and no longer allows implicit constructions of objects of a class type.
+
+## Using unamed namespaces instead of static globals
+
+Unnamed namespace's are superior to the `static` keyword, primarily because the keyword `static` applies only to the variables declarations and functions, not to the user-defined types.
+
+## Using structured bindings to handle multi-return values
+
+## Simplifying code with class template argument deduction
+
+In C++17 you can skip specifying template arguments and let the compiler deduce them in the following cases:
+
+- When you declare a variable or a variable template and initialize it:
+```cpp
+  std::pair p{ 42, "demo" };  // deduces std::pair<int, char const*>
+  std::vector v{ 1, 2 };      // deduces std::vector<int>
+  std::less l;                // deduces std::less<void>
+```
+- When you create an object using a new expression:
+```cpp
+auto f = new foo(42);
+```
+- When you perform function-like cast expressions
+
