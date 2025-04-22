@@ -1,0 +1,195 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "config-base",
+            "hidden": true,
+            "displayName": "Base Config",
+            "description": "Base configuration using Ninja generator",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "installDir": "${sourceDir}/install/${presetName}",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_CXX_STANDARD": "20",
+                "CMAKE_CXX_STANDARD_REQUIRED": "ON",
+                "CMAKE_CXX_EXTENSIONS": "OFF",
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+            }
+        },
+        {
+            "name": "debug",
+            "description": "Debug build configuration",
+            "hidden": true,
+            "inherits": "config-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/out/lib/debug",
+                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/out/bin/debug"
+            }
+        },
+        {
+            "name": "release",
+            "description": "Release build configuration",
+            "hidden": true,
+            "inherits": "config-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_COMPILE_WARNING_AS_ERROR": "ON",
+                "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/lib/release",
+                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin/release"
+            }
+        },
+        {
+            "name": "release-dev",
+            "description": "Release with debug build configuration",
+            "hidden": true,
+            "inherits": "config-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        },
+        {
+            "name": "windows",
+            "description": "Windows build",
+            "hidden": true,
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "mingw",
+            "description": "Windows build (MinGW",
+            "hidden": true,
+            "inherits": "windows",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "cacheVariables": {
+                "VCPKG_HOST_TRIPLET": "x64-mingw-dynamic",
+                "VCPKG_TARGET_TRIPLET": "x64-mingw-dynamic"
+            }
+        },
+        {
+            "name": "gcc",
+            "description": "Build with gcc in Linux or MinGW in Windows",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++"
+            }
+        },
+        {
+            "name": "clang",
+            "description": "Build with clang in Linux or MingGW in Windows",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++"
+            }
+        },
+        {
+            "name": "cl",
+            "description": "Windows build with msvc cl",
+            "hidden": true,
+            "inherits": "windows",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl",
+                "CMAKE_CXX_COMPILER": "cl"
+            }
+        },
+        {
+            "name": "clang-cl",
+            "description": "Windows build with msvc clang-cl",
+            "hidden": true,
+            "inherits": "windows",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang-cl",
+                "CMAKE_CXX_COMPILER": "clang-cl"
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioSettings/CMake/1.0": {
+                    "intelliSenseMode": "windows-clang-x64"
+                }
+            }
+        },
+        {
+            "name": "gcc-debug",
+            "displayName": "Debug build with gcc",
+            "inherits": [
+                "mingw",
+                "debug",
+                "gcc"
+            ]
+        },
+        {
+            "name": "gcc-release",
+            "displayName": "Release build with gcc",
+            "inherits": [
+                "mingw",
+                "release",
+                "gcc"
+            ]
+        },
+        {
+            "name": "clang-debug",
+            "displayName": "Debug build with clang",
+            "inherits": [
+                "mingw",
+                "debug",
+                "clang"
+            ]
+        },
+        {
+            "name": "clang-release",
+            "displayName": "Release build with clang",
+            "inherits": [
+                "mingw",
+                "release",
+                "clang"
+            ]
+        },
+        {
+            "name": "cl-debug",
+            "displayName": "Windows debug build with MSVC cl",
+            "inherits": [
+                "debug",
+                "cl"
+            ]
+        },
+        {
+            "name": "cl-release",
+            "displayName": "Windows release build with MSVC cl",
+            "inherits": [
+                "release",
+                "cl"
+            ]
+        },
+        {
+            "name": "clang-cl-debug",
+            "displayName": "Windows debug build with clang-cl",
+            "inherits": [
+                "debug",
+                "clang-cl"
+            ]
+        },
+        {
+            "name": "clang-cl-release",
+            "displayName": "Windows release build with clang-cl",
+            "inherits": [
+                "release",
+                "clang-cl"
+            ]
+        }
+    ],
+    "buildPresets": [],
+    "testPresets": []
+}
