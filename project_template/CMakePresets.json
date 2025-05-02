@@ -18,7 +18,9 @@
                 "CMAKE_CXX_STANDARD": "20",
                 "CMAKE_CXX_STANDARD_REQUIRED": "ON",
                 "CMAKE_CXX_EXTENSIONS": "OFF",
-                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/out/${presetName}/lib",
+                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/out/${presetName}/bin"
             }
         },
         {
@@ -27,9 +29,7 @@
             "hidden": true,
             "inherits": "config-base",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/out/lib/debug",
-                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/out/bin/debug"
+                "CMAKE_BUILD_TYPE": "Debug"
             }
         },
         {
@@ -39,9 +39,7 @@
             "inherits": "config-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "CMAKE_COMPILE_WARNING_AS_ERROR": "ON",
-                "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/lib/release",
-                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/bin/release"
+                "CMAKE_COMPILE_WARNING_AS_ERROR": "ON"
             }
         },
         {
