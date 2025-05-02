@@ -78,7 +78,19 @@ The default file is named `CMakePresets.json` and is located in the root folder 
 
 ### Configure Presets
 
+To configure cmake with a preset run:
+```
+cmake --preset <preset_name>
+cmake --preset gcc-debug
+```
+
 ### Build Presets
+
+To build a preset run:
+```
+cmake --build build/<preset_name>
+cmake --build build/gcc-debug
+```
 
 ## vcpkg
 
